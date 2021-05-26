@@ -17,9 +17,24 @@ const bookReducers = (state = initialState, action) => {
         }
 
         case "REMOVE_FROM_READING_LIST": {
+            const remainingBooks = state.readingList.filter(book => book.id !== action.payload);
             const newState = {
                 ...state,
-                readingList: [state.readingList.filter(book => book.id !== action.payload)]
+                readingList: remainingBooks
+            }
+            
+            return newState;
+        }
+
+        case "ADD_TO_FINISHED_LIST": {
+            const finishedBook = state.readingList.filter(book => book.id === action.payload);
+            const readingBooks = state.readingList.filter(book => book.id !== action.payload);
+            const remainingBooks = state.discoveredList.filter(book => book.id !== action.payload);
+            const newState = {
+                ...state,
+                discoveredList: remainingBooks,
+                readingList: readingBooks,
+                finishedList: [...state.finishedList, finishedBook],
             }
             return newState;
         }
