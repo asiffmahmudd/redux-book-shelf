@@ -27,12 +27,10 @@ const bookReducers = (state = initialState, action) => {
         }
 
         case "ADD_TO_FINISHED_LIST": {
-            const finishedBook = state.readingList.filter(book => book.id === action.payload);
+            const finishedBook = state.discoveredList.find(book => book.id === action.payload);
             const readingBooks = state.readingList.filter(book => book.id !== action.payload);
-            const remainingBooks = state.discoveredList.filter(book => book.id !== action.payload);
             const newState = {
                 ...state,
-                discoveredList: remainingBooks,
                 readingList: readingBooks,
                 finishedList: [...state.finishedList, finishedBook],
             }
