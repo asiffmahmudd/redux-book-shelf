@@ -29,18 +29,18 @@ const SingleBook = (props) => {
   }
   
   const removeBook = () => {
-    dispatch(removeFromReadingList(props.book.id));
+    dispatch(removeFromReadingList(props.book._id));
     setAddedInReading(false)
   }
 
   const addToFinished = () => {
-    dispatch(addToFinishedList(props.book.id))
+    dispatch(addToFinishedList(props.book._id))
     setAddedInFinished(true)
   }
 
   useEffect(() => {
-    const existsInReading = readingBooks.find(book => book.id === props.book.id)
-    const existsInFinished = finishedBooks.find(book => book.id === props.book.id)
+    const existsInReading = readingBooks.find(book => book._id === props.book._id)
+    const existsInFinished = finishedBooks.find(book => book._id === props.book._id)
     if(existsInReading){
       setAddedInReading(true)
     }
