@@ -6,6 +6,7 @@ import { AuthProvider, PrivateRoute } from './lib/auth'
 import React from 'react';
 
 function App() {
+  
   return (
     <AuthProvider>
       <Router>

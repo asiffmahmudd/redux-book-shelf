@@ -1,4 +1,4 @@
-import allBooks from "../../fakeData/books.json";
+
 
 const initialState = {
     readingList: [],
@@ -16,6 +16,22 @@ const bookReducers = (state = initialState, action) => {
             return newState;
         }
 
+        case "LOAD_READING": {
+            const newState = {
+                ...state,
+                readingList: action.payload
+            }
+            return newState;
+        }
+
+        case "LOAD_FINISHED": {
+            const newState = {
+                ...state,
+                finishedList: action.payload
+            }
+            return newState;
+        }
+
         case "ADD_TO_READING_LIST": {
             const newState = {
                 ...state,
@@ -25,7 +41,7 @@ const bookReducers = (state = initialState, action) => {
         }
 
         case "REMOVE_FROM_READING_LIST": {
-            const remainingBooks = state.readingList.filter(book => book._id !== action.payload);
+            const remainingBooks = state.readingList.filter(book => book.id !== action.payload);
             const newState = {
                 ...state,
                 readingList: remainingBooks
@@ -35,8 +51,8 @@ const bookReducers = (state = initialState, action) => {
         }
 
         case "ADD_TO_FINISHED_LIST": {
-            const finishedBook = state.discoveredList.find(book => book._id === action.payload);
-            const readingBooks = state.readingList.filter(book => book._id !== action.payload);
+            const finishedBook = state.discoveredList.find(book => book.id === action.payload.id);
+            const readingBooks = state.readingList.filter(book => book.id !== action.payload.id);
             const newState = {
                 ...state,
                 readingList: readingBooks,

@@ -1,7 +1,19 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useDispatch } from 'react-redux'
+import { useAuth } from '../../lib/auth'
+import { loadBooks, loadReading, loadFinished } from '../../Redux/Actions/bookActions'
 import Header from './Header'
 import Sidebar from './Sidebar'
 const PageLayout = ({ children }) => {
+
+  const dispatch = useDispatch();
+  const  {user}  = useAuth();
+  useEffect(() => {
+      dispatch(loadBooks());
+      dispatch(loadReading(user.email));
+      dispatch(loadFinished(user.email));
+  }, [dispatch, user.email])
+
   return (
     <div>
       <Header />

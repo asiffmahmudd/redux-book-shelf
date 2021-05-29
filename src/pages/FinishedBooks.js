@@ -9,13 +9,13 @@ const FinishedBooks = () => {
   const books = useSelector(state => {
     return state.books.finishedList;
   })
-  console.log(books)
+
   return (
     <PageLayout>
       {
         books?.length 
         ?
-        books?.map((book) => (<Book key={book?.id} book={book} />))
+        books?.map((book) => (<Book key={book?._id} book={book} />))
         : 
         <p>
         Hey there! This is where books will go when you've finished reading

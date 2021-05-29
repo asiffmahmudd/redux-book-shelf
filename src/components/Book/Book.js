@@ -8,8 +8,10 @@ import { IoCheckmarkDoneCircleOutline } from "react-icons/io5";
 import styles from './book.module.css';
 import {useDispatch, useSelector} from 'react-redux';
 import { addToReadingList, addToFinishedList, removeFromReadingList } from "../../Redux/Actions/bookActions";
+import { useAuth } from "../../lib/auth";
 
 const SingleBook = (props) => {
+  const { user } = useAuth();
   const { title, author, coverImageUrl, synopsis } = props.book;
   const dispatch = useDispatch()
   const [addedInReading, setAddedInReading] = useState(false);
@@ -24,30 +26,30 @@ const SingleBook = (props) => {
   })
 
   const addBook = () => {
-    dispatch(addToReadingList(props.book));
+    dispatch(addToReadingList(props.book, user.email));
     setAddedInReading(true)
   }
   
   const removeBook = () => {
-    dispatch(removeFromReadingList(props.book._id));
+    dispatch(removeFromReadingList(props.book.id, user.email));
     setAddedInReading(false)
   }
 
   const addToFinished = () => {
-    dispatch(addToFinishedList(props.book._id))
+    dispatch(addToFinishedList(props.book, user.email))
     setAddedInFinished(true)
   }
 
   useEffect(() => {
-    const existsInReading = readingBooks.find(book => book._id === props.book._id)
-    const existsInFinished = finishedBooks.find(book => book._id === props.book._id)
+    const existsInReading = readingBooks.find(book => book.id === props.book.id)
+    const existsInFinished = finishedBooks.find(book => book.id === props.book.id)
     if(existsInReading){
       setAddedInReading(true)
     }
     if(existsInFinished){
       setAddedInFinished(true)
     }
-  }, [])
+  }, [finishedBooks, props.book.id, readingBooks])
 
   return (
     <div className='card d-flex mb-3 p-3' 

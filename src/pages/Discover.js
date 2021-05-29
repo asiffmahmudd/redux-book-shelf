@@ -1,12 +1,9 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import Book from '../components/Book/Book';
 import PageLayout from '../components/PageLayout/PageLayout';
-import { useSelector, useDispatch} from 'react-redux';
-import { loadBooks } from '../Redux/Actions/bookActions';
+import { useSelector} from 'react-redux';
 
 const Discover = () => {
-    const dispatch = useDispatch();
-    useEffect(() => dispatch(loadBooks()), [])
     const books = useSelector(state => {
         return state.books.discoveredList
     })
