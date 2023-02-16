@@ -1,6 +1,8 @@
+import { serverUrl } from "../../serverUrl"
+
 export const loadBooks = () => {
     return (dispatch) => {
-        fetch('https://redux-bookshelf.herokuapp.com/books')
+        fetch(serverUrl+'/books')
         .then(res => res.json())
         .then(data => {
             dispatch({
@@ -13,7 +15,7 @@ export const loadBooks = () => {
 
 export const loadReading = (user) => {
     return (dispatch) => {
-        fetch(`https://redux-bookshelf.herokuapp.com/readingList/${user}`)
+        fetch(serverUrl+`/readingList/${user}`)
         .then(res => res.json())
         .then(data => {
             dispatch({
@@ -26,7 +28,7 @@ export const loadReading = (user) => {
 
 export const loadFinished = (user) => {
     return (dispatch) => {
-        fetch(`https://redux-bookshelf.herokuapp.com/finishedList/${user}`)
+        fetch(serverUrl+`/finishedList/${user}`)
         .then(res => res.json())
         .then(data => {
             dispatch({
@@ -39,7 +41,7 @@ export const loadFinished = (user) => {
 
 export const addToReadingList = (book, user) => {
     return (dispatch) => {
-        fetch("https://redux-bookshelf.herokuapp.com/addToReadingList", {
+        fetch(serverUrl+"/addToReadingList", {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'
@@ -60,7 +62,7 @@ export const addToReadingList = (book, user) => {
 
 export const removeFromReadingList = (id, user) => {
     return (dispatch) => {
-        fetch(`https://redux-bookshelf.herokuapp.com/removeFromReading/${id}`, {
+        fetch(serverUrl+`/removeFromReading/${id}`, {
             method: "DELETE",
             headers: {
                 'Content-type': 'application/json; charset=UTF-8'
@@ -82,7 +84,7 @@ export const removeFromReadingList = (id, user) => {
 
 export const addToFinishedList = (book, user) => {
     return (dispatch) => {
-        fetch(`https://redux-bookshelf.herokuapp.com/removeFromReading/${book.id}`, {
+        fetch(serverUrl+`/removeFromReading/${book.id}`, {
             method: "DELETE",
             headers: {
                 'Content-type': 'application/json; charset=UTF-8'
@@ -90,7 +92,7 @@ export const addToFinishedList = (book, user) => {
             body: JSON.stringify({user})
         })
 
-        fetch('https://redux-bookshelf.herokuapp.com/addToFinishedList', {
+        fetch(serverUrl+'/addToFinishedList', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'
